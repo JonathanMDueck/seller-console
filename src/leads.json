@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Johnson",
+    "company": "TechNova Inc.",
+    "email": "alice.johnson@technova.com",
+    "source": "LinkedIn",
+    "score": 87,
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Bob Martinez",
+    "company": "Greenline Solutions",
+    "email": "bob.martinez@greenline.io",
+    "source": "Referral",
+    "score": 74,
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "name": "Catherine Lee",
+    "company": "Skyline Ventures",
+    "email": "catherine.lee@skyline.vc",
+    "source": "Website",
+    "score": 92,
+    "status": "Pending"
+  },
+  {
+    "id": 4,
+    "name": "Daniel Kim",
+    "company": "BlueOcean Corp.",
+    "email": "daniel.kim@blueocean.com",
+    "source": "Event",
+    "score": 65,
+    "status": "Inactive"
+  },
+  {
+    "id": 5,
+    "name": "Emily Davis",
+    "company": "NextGen Labs",
+    "email": "emily.davis@nextgenlabs.org",
+    "source": "LinkedIn",
+    "score": 81,
+    "status": "Active"
+  },
+  {
+    "id": 6,
+    "name": "Frank Wilson",
+    "company": "Visionary Partners",
+    "email": "frank.wilson@visionary.com",
+    "source": "Referral",
+    "score": 55,
+    "status": "Inactive"
+  },
+  {
+    "id": 7,
+    "name": "Grace Chen",
+    "company": "FutureWorks",
+    "email": "grace.chen@futureworks.ai",
+    "source": "Website",
+    "score": 99,
+    "status": "Active"
+  },
+  {
+    "id": 8,
+    "name": "Henry Adams",
+    "company": "CloudEdge",
+    "email": "henry.adams@cloudedge.net",
+    "source": "Event",
+    "score": 70,
+    "status": "Pending"
+  }
+]
