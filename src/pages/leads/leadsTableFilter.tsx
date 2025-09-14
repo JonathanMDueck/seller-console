@@ -55,7 +55,7 @@ export default function LeadsTableFilter({
       </select>
       <button
         onClick={handleApplyFilters}
-        className="hover: cursor-pointer rounded-md bg-slate-700 p-2 transition hover:bg-slate-600"
+        className="hover: cursor-pointer rounded-md border-1 border-slate-500 bg-slate-800 p-2 transition hover:bg-slate-900"
       >
         Apply filters
       </button>

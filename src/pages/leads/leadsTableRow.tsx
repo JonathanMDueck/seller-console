@@ -1,17 +1,23 @@
 import { useContext } from "react";
-import { DetailPanelContext } from "../contexts/detailPanelContext";
-import type { Lead } from "../types/leadType";
+import { LeadsContext } from "../../contexts/LeadsContext";
+import type { Lead } from "../../types/leadType";
 
 type LeadRowType = {
   lead: Lead;
 };
 
 export default function LeadsTableRow({ lead }: LeadRowType) {
-  const { setIsOpen, setLead } = useContext(DetailPanelContext);
+  const { setIsOpen, setSelectedLeadDetail, createOpportunity } =
+    useContext(LeadsContext);
 
   function handleRowClick() {
-    setLead(lead);
+    setSelectedLeadDetail(lead);
     setIsOpen(true);
+  }
+
+  function handleConvertLeadButtonClick(e: any, lead: Lead) {
+    e.stopPropagation();
+    createOpportunity(lead);
   }
 
   return (
@@ -26,7 +32,10 @@ export default function LeadsTableRow({ lead }: LeadRowType) {
       <td className="p-2 text-left">{lead.score}</td>
       <td className="p-2 text-left">{lead.status}</td>
       <td>
-        <button className="rounded-md bg-slate-700 p-2 transition hover:cursor-pointer">
+        <button
+          onClick={(e) => handleConvertLeadButtonClick(e, lead)}
+          className="z-10 rounded-md border-1 border-slate-500 bg-slate-800 p-2 transition hover:cursor-pointer hover:bg-slate-900"
+        >
           Convert
         </button>
       </td>

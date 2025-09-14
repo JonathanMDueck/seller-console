@@ -1,16 +1,12 @@
-import Header from "./components/header";
-import LeadDetailPanel from "./components/LeadDetailPanel";
-import LeadsTable from "./components/leadsTable";
+import { RouterProvider } from "react-router-dom";
+import { LeadsContextProvider } from "./contexts/LeadsContext";
+import { router } from "./routes";
 
 function App() {
   return (
-    <>
-      <div className="relative h-screen bg-slate-900">
-        <LeadDetailPanel />
-        <Header />
-        <LeadsTable />
-      </div>
-    </>
+    <LeadsContextProvider>
+      <RouterProvider router={router} />
+    </LeadsContextProvider>
   );
 }
 
