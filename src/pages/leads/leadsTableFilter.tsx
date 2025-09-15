@@ -1,35 +1,59 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { LeadsContext } from "../../contexts/LeadsContext";
+import type { FilterType } from "../../types/filterType";
 
-type LeadsTableFilterProps = {
-  applyFilters: (
-    nameOrCompany: string,
-    status: string,
-    orderBy: string,
-  ) => void;
-};
-
-export default function LeadsTableFilter({
-  applyFilters,
-}: LeadsTableFilterProps) {
+export default function LeadsTableFilter() {
   const [nameOrCompanyFilter, setNameOrCompanyFilter] = useState("");
-  const [statusFitler, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
   const [orderByFilter, setOrderByFilter] = useState("");
 
+  const { applyFilters, clearFilters } = useContext(LeadsContext);
+
   function handleApplyFilters() {
-    applyFilters(nameOrCompanyFilter, statusFitler, orderByFilter);
+    applyFilters({
+      nameOrCompany: nameOrCompanyFilter,
+      status: statusFilter,
+      orderBy: orderByFilter,
+    });
   }
+
+  function handleStoredFilters() {
+    const storedFilter: string | null = localStorage.getItem(
+      "seller-console-filters",
+    );
+
+    if (storedFilter) {
+      const filter: FilterType = JSON.parse(storedFilter);
+      setNameOrCompanyFilter(filter.nameOrCompany);
+      setStatusFilter(filter.status);
+      setOrderByFilter(filter.orderBy);
+    }
+  }
+
+  function handleClearFilters() {
+    setNameOrCompanyFilter("");
+    setStatusFilter("");
+    setOrderByFilter("");
+    clearFilters();
+  }
+
+  useEffect(() => {
+    handleStoredFilters();
+  }, []);
 
   return (
     <div className="flex gap-2">
       <span className="p-2 text-xl">Filters: </span>
       <input
         type="text"
+        value={nameOrCompanyFilter}
         placeholder="name / company"
         className="rounded-md border-1 border-slate-500 p-2"
         onChange={(e) => setNameOrCompanyFilter(e.target.value)}
       />
       <select
         name="status"
+        value={statusFilter}
         id="status"
         className="rounded-md border-1 border-slate-500 bg-slate-900 p-2"
         onChange={(e) => setStatusFilter(e.target.value)}
@@ -44,6 +68,7 @@ export default function LeadsTableFilter({
       <select
         name="status"
         id="status"
+        value={orderByFilter}
         className="rounded-md border-1 border-slate-500 bg-slate-900 p-2"
         onChange={(e) => setOrderByFilter(e.target.value)}
       >
@@ -58,6 +83,12 @@ export default function LeadsTableFilter({
         className="hover: cursor-pointer rounded-md border-1 border-slate-500 bg-slate-800 p-2 transition hover:bg-slate-900"
       >
         Apply filters
+      </button>
+      <button
+        onClick={handleClearFilters}
+        className="hover: cursor-pointer rounded-md border-1 border-slate-500 bg-slate-800 p-2 transition hover:bg-slate-900"
+      >
+        Clear filters
       </button>
     </div>
   );
