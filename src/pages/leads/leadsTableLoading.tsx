@@ -21,6 +21,9 @@ export default function LeadsTableLoading() {
           <td className="p-2">
             <div className="h-10 w-20 rounded bg-slate-600"></div>
           </td>
+          <td className="p-2">
+            <div className="h-10 w-20 rounded bg-slate-600"></div>
+          </td>
         </tr>
       ))}
     </>
