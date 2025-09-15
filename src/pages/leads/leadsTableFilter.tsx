@@ -27,6 +27,7 @@ export default function LeadsTableFilter() {
       setNameOrCompanyFilter(filter.nameOrCompany);
       setStatusFilter(filter.status);
       setOrderByFilter(filter.orderBy);
+      applyFilters(filter);
     }
   }
 

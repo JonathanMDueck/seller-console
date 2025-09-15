@@ -72,21 +72,33 @@ export function LeadsContextProvider({ children }: LeadsContextProviderProps) {
       });
     }
 
-    if (filters.status !== "") {
+    if (filters.status !== "" && filteredLeads.length !== 0) {
       filteredLeads = filteredLeads.filter((lead) => {
+        return lead.status === filters.status;
+      });
+    } else if (filters.status !== "") {
+      filteredLeads = currentLeads.filter((lead) => {
         return lead.status === filters.status;
       });
     }
 
-    if (filters.orderBy !== "") {
+    if (filters.orderBy !== "" && filteredLeads.length !== 0) {
       if (filters.orderBy === "ascending") {
         filteredLeads = [...filteredLeads].sort((a, b) => a.score - b.score);
       } else if (filters.orderBy === "descending") {
         filteredLeads = [...filteredLeads].sort((a, b) => b.score - a.score);
       }
+    } else if (filters.orderBy !== "") {
+      if (filters.orderBy === "ascending") {
+        filteredLeads = [...currentLeads].sort((a, b) => a.score - b.score);
+      } else if (filters.orderBy === "descending") {
+        filteredLeads = [...currentLeads].sort((a, b) => b.score - a.score);
+      }
     }
-    console.log("setting current leads " + filteredLeads.length);
-    setCurrentLeads(filteredLeads);
+
+    if (filteredLeads.length !== 0) {
+      setCurrentLeads(filteredLeads);
+    }
   }
 
   function clearFilters() {

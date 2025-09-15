@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LeadsContext } from "../../contexts/LeadsContext";
+import type { Lead } from "../../types/leadType";
 import LeadsTableFilter from "./leadsTableFilter";
 import LeadsTableRow from "./leadsTableRow";
 
 export default function LeadsTable() {
   const { currentLeads } = useContext(LeadsContext);
+  const [renderedLeads, setRenderedLeads] = useState<Lead[]>(currentLeads);
+
+  useEffect(() => {
+    setRenderedLeads(currentLeads);
+  }, [currentLeads]);
 
   return (
     <div className="m-auto mt-6 w-[80%] p-0">
@@ -23,7 +29,7 @@ export default function LeadsTable() {
           </tr>
         </thead>
         <tbody>
-          {currentLeads.map((lead) => {
+          {renderedLeads.map((lead) => {
             return <LeadsTableRow key={lead.id} lead={lead} />;
           })}
         </tbody>
