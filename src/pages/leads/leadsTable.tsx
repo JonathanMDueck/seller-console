@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { LeadsContext } from "../../contexts/LeadsContext";
 import type { Lead } from "../../types/leadType";
 import LeadsTableFilter from "./leadsTableFilter";
+import LeadsTableLoading from "./leadsTableLoading";
 import LeadsTableRow from "./leadsTableRow";
 
 export default function LeadsTable() {
-  const { currentLeads } = useContext(LeadsContext);
+  const { currentLeads, isLeadsTableLoading } = useContext(LeadsContext);
   const [renderedLeads, setRenderedLeads] = useState<Lead[]>(currentLeads);
 
   useEffect(() => {
@@ -29,9 +30,11 @@ export default function LeadsTable() {
           </tr>
         </thead>
         <tbody>
-          {renderedLeads.map((lead) => {
-            return <LeadsTableRow key={lead.id} lead={lead} />;
-          })}
+          {!isLeadsTableLoading &&
+            renderedLeads.map((lead) => {
+              return <LeadsTableRow key={lead.id} lead={lead} />;
+            })}
+          {isLeadsTableLoading && <LeadsTableLoading />}
         </tbody>
       </table>
     </div>

@@ -42,6 +42,13 @@ export default function OpportunitiesTable() {
             })}
         </tbody>
       </table>
+      {opportunities.length === 0 && (
+        <div className="mt-20 flex w-full justify-center">
+          <p className="text-xl">
+            No leads were converted to opportunities yet.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

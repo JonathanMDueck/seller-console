@@ -1,4 +1,4 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, useEffect, useState, type ReactNode } from "react";
 import rawData from "../leads.json";
 import type { FilterType } from "../types/filterType";
 import type { Lead } from "../types/leadType";
@@ -19,6 +19,7 @@ type LeadsContextType = {
   opportunities: OpportunityType[];
   applyFilters: (filters: FilterType) => void;
   clearFilters: () => void;
+  isLeadsTableLoading: boolean;
 };
 
 export const LeadsContext = createContext({} as LeadsContextType);
@@ -29,6 +30,7 @@ export function LeadsContextProvider({ children }: LeadsContextProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLeadDetail, setSelectedLeadDetail] = useState<Lead>();
   const [opportunities, setOpportunities] = useState<OpportunityType[]>([]);
+  const [isLeadsTableLoading, setIsLeadsTableLoading] = useState(true);
 
   function updateLead(id: number, email: string, status: string) {
     setCurrentLeads(
@@ -106,6 +108,18 @@ export function LeadsContextProvider({ children }: LeadsContextProviderProps) {
     localStorage.removeItem("seller-console-filters");
   }
 
+  function loadingTimeOut() {
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("Set loading to false");
+      }, 2000);
+    }).then(() => setIsLeadsTableLoading(false));
+  }
+
+  useEffect(() => {
+    loadingTimeOut();
+  }, []);
+
   return (
     <LeadsContext.Provider
       value={{
@@ -119,6 +133,7 @@ export function LeadsContextProvider({ children }: LeadsContextProviderProps) {
         opportunities,
         applyFilters,
         clearFilters,
+        isLeadsTableLoading,
       }}
     >
       {children}
